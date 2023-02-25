@@ -299,7 +299,7 @@ body {
 }
 
 .header {
-  background-color: #444;
+  background-color: rgb(168, 36, 144);
   padding: 0 5rem;
   height: 8rem;
   position: relative;
@@ -323,7 +323,7 @@ body {
   }
 }
 .header__logo img {
-  height: 3.5rem;
+  height: 4.5rem;
 }
 @media only screen and (max-width: 62.5em) {
   .header__logo {
@@ -823,7 +823,7 @@ body {
   }
 }
 .footer__logo img {
-  height: 3rem;
+  height: 5rem;
 }
 .footer__nav {
   list-style: none;
@@ -1322,4 +1322,9 @@ body {
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
+}
+.underconstruction-img {
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
 }

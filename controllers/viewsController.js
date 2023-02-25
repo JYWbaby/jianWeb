@@ -16,6 +16,13 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getUnderConstruction = catchAsync(async (req, res, next) => {
+
+  res.status(200).render('underConstruction', {
+    title: 'Site Under Construction!',
+  });
+});
+
 exports.getTour = catchAsync(async (req, res, next) => {
   // 1) get the datwa, for the requrested tour(reviews and guides)
   const tour = await Tour.findOne({ slug: req.params.slug }).populate({
