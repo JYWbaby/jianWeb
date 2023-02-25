@@ -17,8 +17,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 });
 
 exports.getUnderConstruction = catchAsync(async (req, res, next) => {
-
-  res.status(200).render('underConstruction', {
+  res.status(200).render('underconstruction', {
     title: 'Site Under Construction!',
   });
 });
