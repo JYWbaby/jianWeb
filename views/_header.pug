@@ -1,14 +1,40 @@
-header.header
-  nav.nav.nav--tours
-    a.nav__el(href="/") Home 
-  .header__logo
-    img(src='/img/jian_icon.png' alt='logo')
-  nav.nav.nav--user
-    if user
-      a.nav__el.nav__el--logout(href="#") Log out
-      a.nav__el(href='/me')
-        img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
-        span= user.name.split(' ')[0]
-    else
-      a.nav__el(href='/login') Log in
-      a.nav__el.nav__el--cta(href='#')  Sign up
+header.d-flex.flex-wrap.align-items-center.justify-content-between.py-3.mb-4.border-bottom.text-center
+  .ul.nav.justify-content-between.fs-5.col
+    li
+      a.nav-link.link-secondary(href="/") Home
+    //- li
+    //-   a.nav-link.link-dark(href='#') Features
+    //- li
+    //-   a.nav-link.link-dark(href='#') Pricing
+    //- li
+    //-   a.nav-link.link-dark(href='#') FAQs
+    //- li
+    //-   a.nav-link.link-dark(href='#') About
+  .center-block.img-responsive.col
+    img.mx-auto(src='/img/jian_icon.png' alt='logo' height='36')
+  .text-end.col
+    a(href='/login')
+      button.btn.btn-outline-primary(type='button') Login
+    a(href='#')
+      button.btn.btn-primary(type='button') Sign-up
+
+
+
+
+
+
+//- .container
+//-   header.header
+//-     nav.nav.nav--tours.navbar-fixed-top
+//-       a.item-text.nav__el(href="/") Home 
+//-     .header__logo
+//-       img.img-responsive(src='/img/jian_icon.png' alt='logo')
+//-     nav.nav.nav--user.navbar-fixed-top
+//-       if user
+//-         a.item-text.nav__el.nav__el--logout(href="#") Log out
+//-         a.item-text.nav__el(href='/me')
+//-           img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
+//-           span= user.name.split(' ')[0]
+//-       else
+//-         a.item-text.nav__el(href='/login') Log in
+//-         a.item-text.nav__el.nav__el--cta(href='#')  Sign up
