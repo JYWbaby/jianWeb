@@ -1,5 +1,5 @@
 header.d-flex.flex-wrap.align-items-center.justify-content-between.py-3.mb-4.border-bottom.text-center
-  .ul.nav.justify-content-between.fs-5.col
+  .ul.nav.justify-content-between.fs-5.col-4
     li
       a.nav-link.link-secondary(href="/") Home
     //- li
@@ -10,13 +10,34 @@ header.d-flex.flex-wrap.align-items-center.justify-content-between.py-3.mb-4.bor
     //-   a.nav-link.link-dark(href='#') FAQs
     //- li
     //-   a.nav-link.link-dark(href='#') About
-  .center-block.img-responsive.col
+  .center-block.img-responsive.col-4
     img.mx-auto(src='/img/jian_icon.png' alt='logo' height='36')
-  .text-end.col
-    a(href='/login')
-      button.btn.btn-outline-primary(type='button') Login
-    a(href='#')
-      button.btn.btn-primary(type='button') Sign-up
+  
+  if user
+    .col-1.offset-3
+      .dropdown.text-end
+        a.d-block.link-dark.text-decoration-none.dropdown-toggle(href='#' data-bs-toggle='dropdown' aria-expanded='false')
+          img.rounded-circle(src=`/img/users/${user.photo}` alt=`${user.name}` width='32' height='32')
+        ul.dropdown-menu.text-small
+          li
+            a.dropdown-item(href='#') New project...
+          li
+            a.dropdown-item(href='#') Settings
+          li
+            a.dropdown-item(href='#') Profile
+          li
+            hr.dropdown-divider
+          li
+            a.dropdown-item(href='#') Sign out
+  else
+    .text-end.col 
+      a(href='/login')
+        button.btn.btn-outline-primary(type='button') Login
+      a(href='#')
+        button.btn.btn-primary(type='button') Sign-up
+      
+
+
 
 
 
