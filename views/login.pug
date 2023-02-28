@@ -1,15 +1,35 @@
 extends base
 
 block content
-  main.main
-    .login-form
-      h2.heading-secondary.ma-bt-lg Log into your account
-      form.form.form--login
-        .form__group
-          label.form__label(for='email') Email address
-          input#email.form__input(type='email', placeholder='you@example.com', required)
-        .form__group.ma-bt-md
-          label.form__label(for='password') Password
-          input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
-        .form__group
-          button.btn.btn--green Login
+  main.form-signin.w-100.m-auto.text-center.col-4
+    form.form--login
+      //- img.mb-4(src='/img/ouch.png' alt='' width='72' height='57')
+      h1#login-title.mb-3.fw-normal.heading-secondary Please sign in
+      .form-floating
+        input#email.form-control(type='email' placeholder='name@example.com')
+        label(for='floatingInput') Email address
+      .form-floating
+        input#password.form-control(type='password' placeholder='Password')
+        label(for='floatingPassword') Password
+      .checkbox.mb-3
+        label
+          input(type='checkbox' value='remember-me')
+          |  Remember me
+      button.w-100.btn.btn-lg.btn-primary(type='submit') Sign in
+      p.mt-5.mb-3.text-muted &copy; 2023
+
+
+
+
+  //- main.main
+  //-   .login-form
+  //-     h2.heading-secondary.ma-bt-lg Log into your account
+  //-     form.form.form--login
+  //-       .form__group
+  //-         label.form__label(for='email') Email address
+  //-         input#email.form__input(type='email', placeholder='you@example.com', required)
+  //-       .form__group.ma-bt-md
+  //-         label.form__label(for='password') Password
+  //-         input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+  //-       .form__group
+  //-         button.btn.btn--green Login
