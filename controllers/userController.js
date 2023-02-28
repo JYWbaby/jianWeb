@@ -38,11 +38,16 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-  await sharp(req.file.buffer)
+  // await sharp(req.file.buffer)
+  //   .resize(500, 500)
+  //   .toFormat('jpeg')
+  //   .jpeg({ quality: 90 })
+  //   .toFile(`public/img/users/${req.file.filename}`);
+  req.file = await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`public/img/users/${req.file.filename}`);
+    .toBuffer();
 
   next();
 });
@@ -76,7 +81,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   // 2) filter out field that not allowed to be modified
   const filteredBody = filterObj(req.body, 'name', 'email');
-  if (req.file) filteredBody.photo = req.file.filename;
+  //if (req.file) filteredBody.photo = req.file.filename;
+  if (req.file) filteredBody.photo = req.file;
 
   // 3) Update the user doc
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
@@ -106,6 +112,16 @@ exports.createUser = (req, res) => {
     status: 'error',
     message: 'THis route is not yet defined! Please use /signup instead',
   });
+};
+
+exports.getUserPhoto = (req, res) => {
+  console.log('111');
+  if (!req.user.photo) {
+    res.status(404).send('Image not found');
+  } else {
+    res.set('Content-Type', 'image/jpeg');
+    res.status(200).send(req.user.photo);
+  }
 };
 
 exports.getUser = factory.getOne(User);

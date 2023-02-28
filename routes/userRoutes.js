@@ -25,6 +25,8 @@ router.patch(
 );
 router.delete('/deleteMe', userController.deleteMe);
 
+router.get('/getUserPhoto', userController.getUserPhoto);
+
 router.use(authController.restrictTo('admin'));
 
 router
