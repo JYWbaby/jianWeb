@@ -15,6 +15,8 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const postRouter = require('./routes/postRoutes');
+const commentRouter = require('./routes/commentRoutes');
 const viewRouter = require('./routes/viewRoutes');
 
 // start express app
@@ -117,6 +119,8 @@ app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
+app.use('/api/v1/posts', postRouter);
+app.use('/api/v1/comments', commentRouter);
 
 // for all the html actions
 app.all('*', (req, res, next) => {

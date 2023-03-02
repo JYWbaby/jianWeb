@@ -22,6 +22,12 @@ exports.getUnderConstruction = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getMarkDown = catchAsync(async (req, res, next) => {
+  res.status(200).render('markdown', {
+    title: 'MarkDown!',
+  });
+});
+
 exports.getTour = catchAsync(async (req, res, next) => {
   // 1) get the datwa, for the requrested tour(reviews and guides)
   const tour = await Tour.findOne({ slug: req.params.slug }).populate({

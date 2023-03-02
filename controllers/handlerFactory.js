@@ -56,7 +56,6 @@ exports.getOne = (Model, popOptions) =>
     if (!doc) {
       return next(new AppError('No doc found with that ID', 404));
     }
-
     res.status(200).json({
       status: 'success',
       data: {
