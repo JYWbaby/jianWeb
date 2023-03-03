@@ -13,7 +13,12 @@ const router = express.Router(); // get access to the params
 router
   .route('/')
   .get(postController.getAllPost)
-  .post(postController.createPost);
+  .post(
+    authController.protect,
+    postController.uploadPostCover,
+    postController.resizePostCover,
+    postController.createPost
+  );
 
 router.route('/:id').get(postController.getPost);
 

@@ -4,6 +4,8 @@ import { displayMap } from './leaflet';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
+import { newPost } from './postHandle';
+
 
 // DOM ELEMENTS
 
@@ -13,6 +15,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('form.form-user-data');
 const userPasswordForm = document.querySelector('form.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const postContentEditor = document.getElementById('post-content-editor');
 
 // DELEGATION
 if (leaflet) {
@@ -68,3 +71,20 @@ if (bookBtn)
     const { tourId } = e.target.dataset;
     bookTour(tourId);
   });
+
+if(postContentEditor){
+  const postForm = document.querySelector('form.form-post');
+  var simplemde = new SimpleMDE(postContentEditor);
+  postForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // VALUEs
+    const form = new FormData();
+    form.append('title', document.getElementById('post-title').value);
+    form.append('imageCover', document.getElementById('image-input').files[0]);
+    form.append('content', simplemde.value());
+    //console.log(title, content, imageCover);
+    newPost(form);
+
+  });
+
+}

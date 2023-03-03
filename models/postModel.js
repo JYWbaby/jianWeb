@@ -8,7 +8,6 @@ const postSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, 'A post must have a name'],
-      unique: true,
       trim: true,
       maxlength: [40, 'A post name must have less or equal then 40 characters'],
       minlength: [10, 'A post name must have more or equal then 10 characters'],
@@ -17,7 +16,6 @@ const postSchema = new mongoose.Schema(
     slug: String,
     imageCover: {
       type: String,
-      required: [true, 'A post must have a cover image'],
     },
     createdAt: {
       type: Date,
@@ -40,12 +38,10 @@ const postSchema = new mongoose.Schema(
     //     day: Number,
     //   },
     // ],
-    author: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-      },
-    ],
+    author: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+    },
   },
   {
     toJSON: { virtuals: true },

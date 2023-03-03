@@ -15,18 +15,49 @@
     
   </head>
   <body>
-    <div class="p-5 mb-4 bg-light rounded-3" >
-      <div class="container-fluid py-5">
-        <textarea id="ss"># Type here</textarea>
-      </div>
-    </div>
-    
-
-
-    
+    <main>
+      <form class="form-post">
+        <div class="p-5 mb-4 bg-light rounded-3" >
+          <div class="container-fluid py-2">
+            <label for="post-title" class="form-label">Title<span class="text-muted">(10 <= #letters <= 40)</span></label>
+            <input type="text" class="form-control" id="post-title" placeholder="Your Title">
+          </div>
+          <div class="container-fluid py-2">
+            <label for="image-input" class="form-label" >Image Cover<span class="text-muted">(jpeg, png)</span></label>
+            <div class="container-fluid px-2">
+              <input type="file" id="image-input" accept="image/*" onchange="handleImageSelect(event)">
+              <img id="image-preview" class="img-fluid" style="max-height: 200px;">
+            </div>
+          </div>
+          <div class="container-fluid py-5">
+            <label for="post-cotent" class="form-label" >Content<span class="text-muted">(Support Markdown)</span></label>
+            <textarea id="post-cotent"># Type here</textarea>
+          </div>
+          <div class="text-end">
+            <a href="/"><button class="btn btn-outline-danger">Cancel</button></a>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </form>
+      
+      
+    </main>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script>
-        var simplemde = new SimpleMDE({ element: document.getElementById("ss") });
+        var simplemde = new SimpleMDE({ element: document.getElementById("post-cotent") });
+    </script>
+    <script>
+      function handleImageSelect(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+          const imagePreview = document.getElementById('image-preview');
+          imagePreview.src = event.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      }
     </script>
   </body>
 

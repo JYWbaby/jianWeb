@@ -1,0 +1,41 @@
+extends base
+
+
+block content
+  main
+    form.form-post
+      .p-5.mb-4.bg-light.rounded-3
+        .container-fluid.py-2
+          label.form-label.fs-4(for='post-title')
+            | Title
+            span.text-muted (10 <= #letters <= 40)
+          input#post-title.form-control(type='text' placeholder='Your Title')
+        .container-fluid.py-2
+          label.form-label.fs-4(for='image-input')
+            | Image Cover
+            span.text-muted (jpeg, png)
+          .container-fluid.px-2
+            input#image-input(type='file' accept='image/*' onchange='handleImageSelect(event)')
+            img#image-preview.img-fluid(style='max-height: 200px;')
+        .container-fluid.py-5
+          label.form-label.fs-4(for='post-content-editor')
+            | Content
+            span.text-muted (Support Markdown)
+          textarea#post-content-editor # Type here
+        .text-end
+          a(href='/')
+            button.btn.btn-outline-danger Cancel
+          button.btn.btn-primary(type='submit') Save
+  //- script(src='https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js')
+  //- script.
+  //-   var simplemde = new SimpleMDE({ element: document.getElementById("post-content-editor") });
+  script.
+    function handleImageSelect(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const imagePreview = document.getElementById('image-preview');
+        imagePreview.src = event.target.result;
+      }
+      reader.readAsDataURL(file);
+    }

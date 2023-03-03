@@ -22,9 +22,9 @@ exports.getUnderConstruction = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getMarkDown = catchAsync(async (req, res, next) => {
-  res.status(200).render('markdown', {
-    title: 'MarkDown!',
+exports.getEditPost = catchAsync(async (req, res, next) => {
+  res.status(200).render('editPost', {
+    title: 'Edit Your Post!',
   });
 });
 
