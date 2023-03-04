@@ -16,6 +16,7 @@ const userDataForm = document.querySelector('form.form-user-data');
 const userPasswordForm = document.querySelector('form.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const postContentEditor = document.getElementById('post-content-editor');
+const postContentViewer = document.getElementById('post-content-viewer');
 
 // DELEGATION
 if (leaflet) {
@@ -86,5 +87,14 @@ if(postContentEditor){
     newPost(form);
 
   });
+}
 
+if(postContentViewer){
+  var simplemde = new SimpleMDE({
+    element: postContentViewer, 
+    toolbar: false,
+    spellChecker: false,
+    status: false,
+  });
+  simplemde.togglePreview();
 }

@@ -46,19 +46,6 @@
         });
         simplemde.togglePreview();
     </script>
-    <script>
-      function handleImageSelect(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function(event) {
-          const imagePreview = document.getElementById('image-preview');
-          imagePreview.src = event.target.result;
-        };
-
-        reader.readAsDataURL(file);
-      }
-    </script>
   </body>
 
 </html>
