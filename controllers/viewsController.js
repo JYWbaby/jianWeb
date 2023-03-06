@@ -58,7 +58,7 @@ exports.getViewPost = catchAsync(async (req, res, next) => {
   await populateNestedComments(post.comments);
   //console.log(post.title);
   res.status(200).render('viewPost', {
-    title: 'View Post',
+    title: post.title,
     post,
   });
 });

@@ -40,11 +40,28 @@ block content
 				.col-md-12
 					.card
 						.card-body.p-4
-							h4.text-center.mb-4.pb-2 Nested comments section
+							h4.border-bottom.text-center.mb-4.pb-2 Comments
 							.row
 								.col
 									if post.comments.length
 										each comment in post.comments 
 											+comment(comment)
+						.card-footer.py-3.border-0(style='background-color: #f8f9fa;')
+							if user
+								.d-flex.flex-start.w-100
+									img.rounded-circle.shadow-1-strong.me-3(src='/api/v1/users/getUserPhoto' alt='avatar' width='40' height='40')
+									.form-outline.w-100
+										textarea#textAreaExample.form-control(rows='4' style='background: #fff;')
+										label.form-label(for='textAreaExample') Message
+								.float-end.mt-2.pt-1
+									button.btn.btn-primary.btn-sm(type='button') Post comment
+									button.btn.btn-outline-primary.btn-sm(type='button') Cancel
+							else 
+								p.col-md-4.mb-0.text-muted You have to 
+									a(href="/login")
+										| log in
+									|  first to leave comments.
+							
+
 
 

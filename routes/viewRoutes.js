@@ -24,7 +24,11 @@ router.get(
   viewsController.createPost
 );
 
-router.get('/view-post/:slug', viewsController.getViewPost);
+router.get(
+  '/view-post/:slug',
+  authController.isLoggedIn,
+  viewsController.getViewPost
+);
 
 router.get('/tour/:slug', authController.isLoggedIn, viewsController.getTour);
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
