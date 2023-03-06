@@ -3,12 +3,13 @@ extends base
 
 block content
 	.card.text-bg-light.vh-100.d-flex.flex-column
-		img.card-img(src=`${post.imageCover}` onerror="this.onerror=null; this.src='/img/cardDefaultImg.jpeg'" alt='Alternative text' style='object-fit: cover; height: 100%; width: 100%;')
+		img.card-img(src=`/img/posts/${post.imageCover}` onerror="this.onerror=null; this.src='/img/cardDefaultImg.jpeg'" alt='Alternative text' style='object-fit: cover; height: 100%; width: 100%;')
 		.card-img-overlay.d-flex.flex-column.justify-content-end
 			h1.display-4.fst-italic.text-body-emphasis.py-2= post.title
 			a(href='#anchor')
-				botton.btn.btn-primary.btn-lg.align-self-start.fs-2 Explore
+				botton.btn.btn-outline-dark.btn-lg.align-self-start.fs-2 Explore
 	main.py-5
 		#anchor.bg-light.rounded-3
 			.container-fluid.py-1
 				textarea#post-content-viewer= post.content
+			

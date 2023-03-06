@@ -23,7 +23,16 @@ exports.getUnderConstruction = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getEditPost = catchAsync(async (req, res, next) => {
+exports.getHome = catchAsync(async (req, res, next) => {
+  const posts = await Post.find();
+
+  res.status(200).render('home', {
+    title: 'Home',
+    posts,
+  });
+});
+
+exports.createPost = catchAsync(async (req, res, next) => {
   res.status(200).render('editPost', {
     title: 'Edit Your Post!',
   });

@@ -75,7 +75,7 @@ if (bookBtn)
 
 if(postContentEditor){
   const postForm = document.querySelector('form.form-post');
-  var simplemde = new SimpleMDE(postContentEditor);
+  var simplemde = new EasyMDE(postContentEditor);
   postForm.addEventListener('submit', (e) => {
     e.preventDefault();
     // VALUEs
@@ -90,11 +90,13 @@ if(postContentEditor){
 }
 
 if(postContentViewer){
-  var simplemde = new SimpleMDE({
+  var simplemde = new EasyMDE({
     element: postContentViewer, 
     toolbar: false,
     spellChecker: false,
     status: false,
+    minHeight: '600px',
+
   });
   simplemde.togglePreview();
 }

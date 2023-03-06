@@ -70,6 +70,7 @@ async function populateNestedComments(comments, depth = 1) {
 
 exports.getPost = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id).populate('comments');
+  await populateNestedComments(post.comments);
 
   if (!post) {
     return next(new AppError('No doc found with that ID', 404));

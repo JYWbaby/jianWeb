@@ -10,15 +10,18 @@ const router = express.Router();
 //   authController.isLoggedIn,
 //   viewsController.getOverview
 // );
+
+router.get('/', authController.isLoggedIn, viewsController.getHome);
+
 router.get(
-  '/',
+  '/underConstruction',
   authController.isLoggedIn,
   viewsController.getUnderConstruction
 );
 router.get(
-  '/edit-post',
+  '/create-post',
   authController.isLoggedIn,
-  viewsController.getEditPost
+  viewsController.createPost
 );
 
 router.get('/view-post/:slug', viewsController.getViewPost);
