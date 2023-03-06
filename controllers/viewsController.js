@@ -38,8 +38,24 @@ exports.createPost = catchAsync(async (req, res, next) => {
   });
 });
 
+async function populateNestedComments(comments, depth = 1) {
+  if (depth > 5) {
+    return;
+  }
+  // eslint-disable-next-line no-restricted-syntax
+  for (const comment of comments) {
+    // eslint-disable-next-line no-await-in-loop
+    await comment.populate('children').execPopulate();
+    // eslint-disable-next-line no-await-in-loop
+    await populateNestedComments(comment.children, depth + 1);
+  }
+}
+
 exports.getViewPost = catchAsync(async (req, res, next) => {
-  const post = await Post.findOne({ slug: req.params.slug });
+  const post = await Post.findOne({ slug: req.params.slug }).populate(
+    'comments'
+  );
+  await populateNestedComments(post.comments);
   //console.log(post.title);
   res.status(200).render('viewPost', {
     title: 'View Post',
