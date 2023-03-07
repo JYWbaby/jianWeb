@@ -13,7 +13,10 @@ const postSchema = new mongoose.Schema(
       minlength: [10, 'A post name must have more or equal then 10 characters'],
       //validate: [validator.isAlpha, 'post name must only contain characters'],
     },
-    slug: String,
+    slug: {
+      type: String,
+      unique: true,
+    },
     imageCover: {
       type: String,
     },
