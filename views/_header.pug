@@ -1,7 +1,9 @@
 header.d-flex.flex-wrap.align-items-center.justify-content-between.py-3.mb-4.border-bottom.text-center
-  .ul.nav.fs-5.col-2.text-left
+  .ul.nav.fs-md-5.col-md-3.text-left
     li
       a.nav-link.link-secondary(href="/") Home
+    li
+      a.nav-link.link-dark(href='/gallery') Gallery
     li
       a.nav-link.link-dark(href='/underConstruction') About
     //- li
@@ -10,11 +12,11 @@ header.d-flex.flex-wrap.align-items-center.justify-content-between.py-3.mb-4.bor
     //-   a.nav-link.link-dark(href='#') FAQs
     //- li
     //-   a.nav-link.link-dark(href='#') About
-  .center-block.img-responsive.col-4.offset-2
+  .center-block.img-responsive.col-md-4.offset-md-1
     img.mx-auto(src='/img/jian_icon.png' alt='logo' height='36')
   
   if user
-    .col-1.offset-3
+    .col-md-1.offset-md-3
       .dropdown.text-end
         a.d-block.link-dark.text-decoration-none.dropdown-toggle(href='#' data-bs-toggle='dropdown' aria-expanded='false')
           img.rounded-circle(src='/api/v1/users/getUserPhoto' alt=`${user.name}` width='32' height='32')

@@ -18,6 +18,7 @@ const bookingRouter = require('./routes/bookingRoutes');
 const postRouter = require('./routes/postRoutes');
 const commentRouter = require('./routes/commentRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const photoRouter = require('./routes/photoRoutes');
 
 // start express app
 const app = express();
@@ -121,6 +122,7 @@ app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 app.use('/api/v1/posts', postRouter);
 app.use('/api/v1/comments', commentRouter);
+app.use('/api/v1/photos', photoRouter);
 
 // for all the html actions
 app.all('*', (req, res, next) => {

@@ -13,6 +13,8 @@ const router = express.Router();
 
 router.get('/', authController.isLoggedIn, viewsController.getHome);
 
+router.get('/gallery', authController.isLoggedIn, viewsController.getGallery);
+
 router.get(
   '/underConstruction',
   authController.isLoggedIn,

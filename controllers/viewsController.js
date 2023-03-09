@@ -4,6 +4,7 @@ const AppError = require('../utils/appError');
 const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
 const Post = require('../models/postModel');
+const Photo = require('../models/photoModel');
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   //1) Get tour data from collection
@@ -14,6 +15,20 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   res.status(200).render('overview', {
     title: 'All tours',
     tours,
+  });
+});
+
+exports.getGallery = catchAsync(async (req, res, next) => {
+  //1) Get tour data from collection
+  //const tours = await Tour.find();
+  // 2) Build template
+  // 3) Render that template using tour data from 1)
+
+  const photos = await Photo.find();
+
+  res.status(200).render('gallery', {
+    title: 'Gallery',
+    photos,
   });
 });
 

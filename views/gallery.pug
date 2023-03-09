@@ -1,0 +1,34 @@
+extends base
+
+block content
+  button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#uploadModal')
+    | Upload photos
+  .album.py-5.bg-light
+      #anchor.container
+        .row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3
+          each photo in photos
+            .col
+              .card.shadow-sm
+                img.img-responsive.card-img-top(src=`https://yjphotos.s3.us-west-1.amazonaws.com/${photo.name}` width="20%" height="auto")
+                .card-body
+                  p.card-text
+                    = photo.name
+                  .d-flex.justify-content-between.align-items-center
+                    small.text-muted
+                      = photo.createdAt.toLocaleString('en-us', {day: 'numeric', month: 'long', year: 'numeric'})
+            
+  // Modal
+  #uploadModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='uploadModalLabel' aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          h5#uploadModalLabel.modal-title Upload Files
+          button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+        .modal-body
+          form.form-uploadPhotos
+            .form-group.py-2
+              label(for='imageUpload') Select files to upload:
+              input#imageUpload.form-control-file(type='file' accept='image/*' name='images[]' multiple)
+            button.btn.btn-primary(type='submit') Upload
+        .modal-footer
+          p.text-muted.fs-6 Images will be uploaded to AWS S3 bucket bucket hold by yuewei

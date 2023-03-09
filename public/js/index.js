@@ -5,7 +5,7 @@ import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { newPost } from './postHandle';
-
+import { uploadPhotos } from './gallery';
 
 // DOM ELEMENTS
 
@@ -17,6 +17,7 @@ const userPasswordForm = document.querySelector('form.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const postContentEditor = document.getElementById('post-content-editor');
 const postContentViewer = document.getElementById('post-content-viewer');
+const photoForm = document.querySelector('form.form-uploadPhotos');
 
 // DELEGATION
 if (leaflet) {
@@ -25,6 +26,7 @@ if (leaflet) {
 }
 
 if (loginForm) {
+  console.log('here')
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     // VALUEs
@@ -46,6 +48,20 @@ if (userDataForm)
 
     updateSettings(form, 'data');
   });
+
+if (photoForm){
+  console.log('here')
+  photoForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = new FormData();
+    const files = document.getElementById('imageUpload').files;
+    for (let i = 0; i < files.length; i++) {
+      form.append('photos', files[i]);
+    }
+    uploadPhotos(form);
+  });
+}
+  
 
 if (userPasswordForm)
   userPasswordForm.addEventListener('submit', async (e) => {
