@@ -46,17 +46,21 @@ exports.resizePhoto = catchAsync(async (req, res, next) => {
 
       // Determine target dimensions based on aspect ratio
       const aspectRatio = width / height;
-      let targetWidth;
-      let targetHeight;
-      if (aspectRatio >= 1) {
-        // 3:2 aspect ratio or wider
-        targetWidth = 3000;
-        targetHeight = 2000;
-      } else {
-        // 2:3 aspect ratio or taller
-        targetWidth = 2000;
-        targetHeight = 3000;
+      let targetWidth = width / 2;
+      let targetHeight = height / 2;
+      while (targetHeight > 3200 || targetWidth > 3200) {
+        targetWidth = width / 2;
+        targetHeight = height / 2;
       }
+      // if (aspectRatio >= 1) {
+      //   // 3:2 aspect ratio or wider
+      //   targetWidth = 3000;
+      //   targetHeight = 2000;
+      // } else {
+      //   // 2:3 aspect ratio or taller
+      //   targetWidth = 2000;
+      //   targetHeight = 3000;
+      // }
       // resize image
       const buffer = await sharp(file.buffer)
         .resize(targetWidth, targetHeight)

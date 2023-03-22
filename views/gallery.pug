@@ -1,8 +1,9 @@
 extends base
 
 block content
-  button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#uploadModal')
-    | Upload photos
+  - if (user && user.role === 'admin')
+    button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#uploadModal')
+      | Upload photos
   .album.py-5.bg-light
       #anchor.container
         .row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3

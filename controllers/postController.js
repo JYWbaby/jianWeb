@@ -1,11 +1,16 @@
 /* eslint-disable no-restricted-syntax */
-const AppError = require('../utils/appError');
-const Post = require('./../models/postModel');
-const catchAsync = require('./../utils/catchAsync');
-const factory = require('./handlerFactory');
-
+const AWS = require('aws-sdk');
 const multer = require('multer');
 const sharp = require('sharp');
+const AppError = require('../utils/appError');
+const Post = require('../models/postModel');
+const catchAsync = require('../utils/catchAsync');
+const factory = require('./handlerFactory');
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
 
 // const multerStorage = multer.diskStorage({
 //   destination: (req, file, cb) => {
@@ -41,20 +46,39 @@ exports.resizePostCover = catchAsync(async (req, res, next) => {
   req.file.filename = `post-${req.user.id}-${Date.now()}.jpeg`;
   console.log(req.file.filename);
 
+  const metadata = await sharp(req.file.buffer).metadata();
+  const { width, height } = metadata;
+
+  let targetWidth = 600;
+  let targetHeight = 400;
+
   // await sharp(req.file.buffer)
-  //   .resize(500, 500)
+  //   .resize(3000, 2000)
   //   .toFormat('jpeg')
   //   .jpeg({ quality: 90 })
-  //   .toFile(`public/img/users/${req.file.filename}`);
-  await sharp(req.file.buffer)
-    .resize(3000, 2000)
+  //   .toFile(`public/img/posts/${req.file.filename}`);
+
+  const buffer = await sharp(req.file.buffer)
+    .resize(targetWidth, targetHeight)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`public/img/posts/${req.file.filename}`);
+    .toBuffer();
+
+  const params = {
+    Bucket: 'yjcovers',
+    Key: req.file.filename,
+    Body: buffer, // replace `buffer` with your image buffer
+  };
+
+  // Upload the image to S3
+  s3.upload(params, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 
   next();
 });
-
 
 async function populateNestedComments(comments, depth = 1) {
   if (depth > 5) {
@@ -87,7 +111,8 @@ exports.getPost = catchAsync(async (req, res, next) => {
 exports.createPost = catchAsync(async (req, res, next) => {
   if (!req.body.author) req.body.author = req.user.id;
   console.log(req.file.filename);
-  if (req.file) req.body.imageCover = req.file.filename;
+  if (req.file)
+    req.body.imageCover = req.file.filename;
   const doc = await Post.create(req.body);
 
   res.status(201).json({
