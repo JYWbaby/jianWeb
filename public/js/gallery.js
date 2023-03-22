@@ -17,5 +17,6 @@ export const uploadPhotos = async (data) => {
       }
 
   } catch (err) {
+    console.log(err);
   }
 };
