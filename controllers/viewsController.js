@@ -24,7 +24,7 @@ exports.getGallery = catchAsync(async (req, res, next) => {
   // 2) Build template
   // 3) Render that template using tour data from 1)
 
-  const photos = await Photo.find();
+  const photos = await Photo.find().sort('-createdAt');
 
   res.status(200).render('gallery', {
     title: 'Gallery',

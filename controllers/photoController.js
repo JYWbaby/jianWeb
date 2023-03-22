@@ -43,6 +43,7 @@ exports.resizePhoto = catchAsync(async (req, res, next) => {
 
       const metadata = await sharp(file.buffer).metadata();
       const { width, height } = metadata;
+      console.log(width, height);
 
       // Determine target dimensions based on aspect ratio
       const aspectRatio = width / height;
@@ -64,6 +65,7 @@ exports.resizePhoto = catchAsync(async (req, res, next) => {
       // resize image
       const buffer = await sharp(file.buffer)
         .resize(targetWidth, targetHeight)
+        .withMetadata()  // need this to keep rotate
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
         .toBuffer();
@@ -84,6 +86,7 @@ exports.resizePhoto = catchAsync(async (req, res, next) => {
       await Photo.create({
         author: req.user.id,
         name: filename,
+        createdAt: Date.now(),
       });
     });
 
