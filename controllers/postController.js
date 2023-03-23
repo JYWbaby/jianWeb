@@ -49,8 +49,8 @@ exports.resizePostCover = catchAsync(async (req, res, next) => {
   const metadata = await sharp(req.file.buffer).metadata();
   const { width, height } = metadata;
 
-  let targetWidth = 600;
-  let targetHeight = 400;
+  let targetWidth = 1800;
+  let targetHeight = 1200;
 
   // await sharp(req.file.buffer)
   //   .resize(3000, 2000)
