@@ -5,6 +5,7 @@ const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
 const Post = require('../models/postModel');
 const Photo = require('../models/photoModel');
+const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   //1) Get tour data from collection
@@ -24,7 +25,14 @@ exports.getGallery = catchAsync(async (req, res, next) => {
   // 2) Build template
   // 3) Render that template using tour data from 1)
 
-  const photos = await Photo.find().sort('-createdAt');
+  const features = new APIFeatures(Photo.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const photos = await features.query;
+
+  // const photos = await Photo.find({ type: 'Photography' }).sort('-createdAt');
 
   res.status(200).render('gallery', {
     title: 'Gallery',

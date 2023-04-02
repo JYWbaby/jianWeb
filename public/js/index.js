@@ -58,6 +58,8 @@ if (photoForm){
     for (let i = 0; i < files.length; i++) {
       form.append('photos', files[i]);
     }
+    const il = document.getElementById('imageLabel');
+    form.append('type', il.options[il.selectedIndex].text );
     uploadPhotos(form);
   });
 }

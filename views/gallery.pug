@@ -30,6 +30,12 @@ block content
             .form-group.py-2
               label(for='imageUpload') Select files to upload:
               input#imageUpload.form-control-file(type='file' accept='image/*' name='images[]' multiple)
+            .form-group.py-2
+              label(for='imageLabel') Label
+              select#imageLabel.form-select(required='')
+                option(value='') Daily
+                option Foods
+                option Photography
             button.btn.btn-primary(type='submit') Upload
         .modal-footer
           p.text-muted.fs-6 Images will be uploaded to AWS S3 bucket bucket hold by yuewei

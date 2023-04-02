@@ -83,9 +83,12 @@ exports.resizePhoto = catchAsync(async (req, res, next) => {
         }
       });
 
+      console.log(req.body.type);
+
       await Photo.create({
         author: req.user.id,
         name: filename,
+        type: req.body.type,
         createdAt: Date.now(),
       });
     });
