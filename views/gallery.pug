@@ -10,14 +10,30 @@ block content
           each photo in photos
             .col
               .card.shadow-sm
-                img.img-responsive.card-img-top(src=`https://yjphotos.s3.us-west-1.amazonaws.com/${photo.name}` width="20%" height="auto")
+                img.img-responsive.card-img-top(src=`https://yjphotos.s3.us-west-1.amazonaws.com/${photo.name}` width="20%" height="auto" data-bs-toggle="modal" data-bs-target="#previewModal" data-name=`${photo.name}` onclick="previewImage(this);")
+                #previewModal.modal.fade(tabindex='-1' aria-labelledby='previewModalLabel' aria-hidden='true')
+                  .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.modal-xl
+                    .modal-content
+                      .modal-header
+                        h5#previewModalLabel.modal-title Image preview
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                      .modal-body
+                        div.d-flex.justify-content-center.align-items-center
+                          button.btn.btn-secondary.me-2(id="zoomInBtn") 
+                            <i class="bi bi-zoom-in"></i>
+                            | Zoom In
+
+                          button.btn.btn-secondary(id="zoomOutBtn") 
+                            <i class="bi bi-zoom-out"></i>
+                            | Zoom Out
+                        .py-2
+                          img#previewImage.img-fluid.mx-auto.d-block(src=`img.png` alt='Image preview' width="40%" height="auto") 
                 .card-body
                   p.card-text
                     = photo.name
                   .d-flex.justify-content-between.align-items-center
                     small.text-muted
-                      = photo.createdAt.toLocaleString('en-us', {day: 'numeric', month: 'long', year: 'numeric'})
-            
+                      = photo.createdAt.toLocaleString('en-us', {day: 'numeric', month: 'long', year: 'numeric'})   
   // Modal
   #uploadModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='uploadModalLabel' aria-hidden='true')
     .modal-dialog(role='document')
@@ -39,3 +55,31 @@ block content
             button.btn.btn-primary(type='submit') Upload
         .modal-footer
           p.text-muted.fs-6 Images will be uploaded to AWS S3 bucket bucket hold by yuewei
+
+  script.
+    function zoomIn() {
+      var img = document.getElementById("previewImage");
+      var currentWidth = img.clientWidth;
+      img.style.width = (currentWidth + 50) + "px";
+    }
+
+    function zoomOut() {
+      var img = document.getElementById("previewImage");
+      var currentWidth = img.clientWidth;
+      img.style.width = (currentWidth - 50) + "px";
+    }
+
+    function previewImage(link) {
+      var name = link.getAttribute("data-name");
+      var modal = document.getElementById("previewModal");
+      var title = modal.querySelector(".modal-title");
+      var image = modal.querySelector(".img-fluid");
+      image.src = `https://yjphotos.s3.us-west-1.amazonaws.com/${name}`
+      title.textContent = name;
+
+      var zoomInBtn = document.getElementById("zoomInBtn");
+      var zoomOutBtn = document.getElementById("zoomOutBtn");
+      zoomInBtn.addEventListener("click", zoomIn);
+      zoomOutBtn.addEventListener("click", zoomOut);
+    }
+
