@@ -2,8 +2,17 @@ header.d-flex.flex-wrap.align-items-center.justify-content-between.py-3.mb-4.bor
   .ul.nav.fs-md-5.col-md-3.text-left
     li
       a.nav-link.link-secondary(href="/") Home
-    li
-      a.nav-link.link-dark(href='/gallery') Gallery
+    li.nav-item.dropdown
+      a#galleryDropdown.nav-link.dropdown-toggle.link-dark(href='/gallery' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+        | Gallery
+      ul.dropdown-menu(aria-labelledby='galleryDropdown')
+        li
+          a.dropdown-item(href='/gallery?type=Photography') Photography
+        li
+          a.dropdown-item(href='/gallery?type=Daily') Daily
+        li
+          a.dropdown-item(href='/gallery?type=Foods') Foods
+
     li
       a.nav-link.link-dark(href='/underConstruction') About
     //- li
