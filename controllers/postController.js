@@ -110,7 +110,7 @@ exports.getPost = catchAsync(async (req, res, next) => {
 
 exports.createPost = catchAsync(async (req, res, next) => {
   if (!req.body.author) req.body.author = req.user.id;
-  console.log(req.file.filename);
+  //console.log(req.file.filename);
   if (req.file)
     req.body.imageCover = req.file.filename;
   const doc = await Post.create(req.body);
@@ -122,6 +122,22 @@ exports.createPost = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.editPost = catchAsync(async (req, res, next) => {
+  if (!req.body.author) req.body.author = req.user.id;
+  //console.log(req.file.filename);
+  if (req.file)
+    req.body.imageCover = req.file.filename;
+  const doc = await Post.findOneAndUpdate({ slug: req.body.slug }, req.body);
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: doc,
+    },
+  });
+});
+
 // exports.getPost = factory.getOne(Post, {
 //   path: 'comments',
 //   populate: {

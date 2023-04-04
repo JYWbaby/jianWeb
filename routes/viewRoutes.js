@@ -27,6 +27,12 @@ router.get(
 );
 
 router.get(
+  '/edit-post/:slug',
+  authController.isLoggedIn,
+  viewsController.editPost
+);
+
+router.get(
   '/view-post/:slug',
   authController.isLoggedIn,
   viewsController.getViewPost

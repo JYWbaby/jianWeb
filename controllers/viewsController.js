@@ -57,7 +57,17 @@ exports.getHome = catchAsync(async (req, res, next) => {
 
 exports.createPost = catchAsync(async (req, res, next) => {
   res.status(200).render('editPost', {
+    title: 'Creat Your Post!',
+  });
+});
+
+exports.editPost = catchAsync(async (req, res, next) => {
+
+  const post = await Post.findOne({ slug: req.params.slug });
+
+  res.status(200).render('editPost', {
     title: 'Edit Your Post!',
+    post,
   });
 });
 

@@ -98,10 +98,19 @@ if(postContentEditor){
     e.preventDefault();
     // VALUEs
     const form = new FormData();
+    const slug = document.getElementById('post-slug');
+    if(slug)
+      form.append('slug', slug.value);
     form.append('title', document.getElementById('post-title').value);
-    form.append('imageCover', document.getElementById('image-input').files[0]);
+    const imageCover = document.getElementById('image-input').files[0];
+    if(imageCover)
+      form.append('imageCover', imageCover);
     form.append('content', simplemde.value());
-    //console.log(title, content, imageCover);
+
+    for (let [name, value] of form) {
+      console.log(`${name} = ${value}`);
+    }
+
     newPost(form);
 
   });

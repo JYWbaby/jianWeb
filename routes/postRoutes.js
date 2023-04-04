@@ -18,6 +18,12 @@ router
     postController.uploadPostCover,
     postController.resizePostCover,
     postController.createPost
+  )
+  .patch(
+    authController.protect,
+    postController.uploadPostCover,
+    postController.resizePostCover,
+    postController.editPost
   );
 
 router.route('/:id').get(postController.getPost);
