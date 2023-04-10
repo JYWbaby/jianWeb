@@ -37,17 +37,23 @@ block content
 
   nav(aria-label='Page navigation example')
     ul.pagination.justify-content-center
-      li.page-item
-        a.page-link(href=`/gallery?type=${type}&page=${parseInt(currentPage) - 1}&limit=18` aria-label='Previous')
-          span(aria-hidden='true') &laquo;
-          span.sr-only Previous
-      each index in pageIndex
+      if currentPage != 1
         li.page-item
-          a.page-link(href=`/gallery?type=${type}&page=${index}&limit=18`)= index
-      li.page-item
-        a.page-link(href=`/gallery?type=${type}&page=${parseInt(currentPage) + 1}&limit=18` aria-label='Next')
-          span(aria-hidden='true') &raquo;
-          span.sr-only Next
+          a.page-link(href=`/gallery?type=${type}&page=${parseInt(currentPage) - 1}&limit=18` aria-label='Previous')
+            span(aria-hidden='true') &laquo;
+            span.sr-only Previous
+      each index in pageIndex
+        if index == String(currentPage)
+          li.page-item
+          a.page-link(class='disabled' href=`/gallery?type=${type}&page=${index}&limit=18`)= index
+        else
+          li.page-item
+            a.page-link(href=`/gallery?type=${type}&page=${index}&limit=18`)= index
+      if String(currentPage) != pageIndex[pageIndex.length - 1]
+        li.page-item
+          a.page-link(href=`/gallery?type=${type}&page=${parseInt(currentPage) + 1}&limit=18` aria-label='Next')
+            span(aria-hidden='true') &raquo;
+            span.sr-only Next
 
   // Modal
   #uploadModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='uploadModalLabel' aria-hidden='true')
