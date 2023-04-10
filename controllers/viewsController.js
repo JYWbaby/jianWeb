@@ -25,6 +25,7 @@ exports.getGallery = catchAsync(async (req, res, next) => {
   // 2) Build template
   // 3) Render that template using tour data from 1)
 
+
   const features = new APIFeatures(Photo.find(), req.query)
     .filter()
     .sort()
@@ -32,11 +33,21 @@ exports.getGallery = catchAsync(async (req, res, next) => {
     .paginate();
   const photos = await features.query;
 
+  const count = await Photo.countDocuments({ type: req.query.type });
+  const nPages = count / 18;
+  const pageIndex = [];
+  for (let i = 1; i <= nPages + 1; i += 1) {
+    pageIndex.push(String(i));
+  }
+
   // const photos = await Photo.find({ type: 'Photography' }).sort('-createdAt');
 
   res.status(200).render('gallery', {
     title: 'Gallery',
     photos,
+    pageIndex,
+    currentPage: req.query.page,
+    type: req.query.type,
   });
 });
 

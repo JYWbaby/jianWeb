@@ -34,6 +34,21 @@ block content
                   .d-flex.justify-content-between.align-items-center
                     small.text-muted
                       = photo.createdAt.toLocaleString('en-us', {day: 'numeric', month: 'long', year: 'numeric'})   
+
+  nav(aria-label='Page navigation example')
+    ul.pagination.justify-content-center
+      li.page-item
+        a.page-link(href=`/gallery?type=${type}&page=${parseInt(currentPage) - 1}&limit=18` aria-label='Previous')
+          span(aria-hidden='true') &laquo;
+          span.sr-only Previous
+      each index in pageIndex
+        li.page-item
+          a.page-link(href=`/gallery?type=${type}&page=${index}&limit=18`)= index
+      li.page-item
+        a.page-link(href=`/gallery?type=${type}&page=${parseInt(currentPage) + 1}&limit=18` aria-label='Next')
+          span(aria-hidden='true') &raquo;
+          span.sr-only Next
+
   // Modal
   #uploadModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='uploadModalLabel' aria-hidden='true')
     .modal-dialog(role='document')
