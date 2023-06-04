@@ -58,7 +58,7 @@ exports.getUnderConstruction = catchAsync(async (req, res, next) => {
 });
 
 exports.getHome = catchAsync(async (req, res, next) => {
-  const posts = await Post.find();
+  const posts = await Post.find().sort('-createdAt');
 
   res.status(200).render('home', {
     title: 'Home',
